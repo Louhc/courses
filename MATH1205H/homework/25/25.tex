@@ -24,5 +24,104 @@
         $$
         Therefore, $L$ is surjective.
     \section*{Exercise 2.}
-
+        $$
+            \forall v\in V : T'(L)(v)=L(I(v))=L(v)
+        $$
+        Therefore, $\forall L\in V':T'(L)=L$
+    \section*{Exercise 3.}
+        Choose an arbitrary basis $\tilde{v}_1,...,\tilde{v}_n$ and the corresponding dual basis $\tilde{L}_1,...,\tilde{L}_n$.
+        $$
+            \exists M=\begin{bmatrix}
+                x_1 & \cdots & x_n
+            \end{bmatrix}\in \mathbb{R}^{n\times n}:\begin{bmatrix}
+                \tilde{L}_1 & \cdots & \tilde{L}_n
+            \end{bmatrix}M=\begin{bmatrix}
+                L_1 & \cdots & L_n
+            \end{bmatrix}
+        $$
+        $$
+            L_i=\begin{bmatrix}
+                \tilde{L}_1 & \cdots & \tilde{L}_n
+            \end{bmatrix}x_i
+        $$
+        Suppose
+        $$
+            (M^{-1})^T=\begin{bmatrix}
+                y_1 & \cdots & y_n
+            \end{bmatrix}
+        $$
+        So
+        $$
+            x_i\cdot y_j=\left\{\begin{aligned}
+                & 0 & i\neq j\\
+                & 1 & i = j
+            \end{aligned}\right.
+        $$
+        Let
+        $$
+            v_i=\begin{bmatrix}
+                \tilde{v}_1 & \cdots & \tilde{v}_n
+            \end{bmatrix}y_i
+        $$
+        Then
+        $$
+            L_i(v_i)=x_i\cdot y_i=\left\{\begin{aligned}
+                & 0 & i\neq j\\
+                & 1 & i = j
+            \end{aligned}\right.
+        $$
+        So the corresponding dual basis for $v_1, ..., v_n$ is precisely $L_1, ..., L_n$
+    \section*{Exercise 4.}
+        \subsection*{$T=0\Rightarrow T'=0$}
+            $$
+                \forall v\in V:T(v)=0
+            $$
+            Therefore
+            $$
+                \forall L\in W',\forall v\in V:T'(L)(v)=L(Tv)=L(0)=0
+            $$
+            $$
+                \forall L\in W':T'(L)=0
+            $$
+            So $T'=0$
+        \subsection*{$T'=0\Rightarrow T=0$}
+            $$
+                \forall L\in W', \forall v\in V:L(Tv)=T'(L)(v)=0
+            $$
+            If $T\neq 0$, i.e., $\exists v_0\in V:Tv_0\neq 0$
+            $$
+                T'((Tv_0)')(v_0)=(Tv_0)'(Tv_0)=1
+            $$
+            which contradicts with above.So $T=0$
+    \section*{Exercise 5.}
+        \subsection*{sufficiency}
+            If
+            $$
+                A=uv^T=\begin{bmatrix}
+                    u_1v_1 & u_1v_2 & \cdots & u_1v_n\\
+                    u_2v_1 & u_2v_2 & \cdots & u_2v_n\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    u_mv_1 & u_mv_2 & \cdots & u_mv_n
+                \end{bmatrix}=\begin{bmatrix}
+                    a_1 & a_2 & \cdots & a_n
+                \end{bmatrix}
+            $$
+            Without loss of generosity, we suppose that $v_1\neq 0$.So
+            $$
+                \forall i\geq 2: a_i=\frac{v_i}{v_1}a_1\in\text{span}\{a_1\}
+            $$
+            So $a_1$ is a basis for $C(A)$ and $\text{rank}(A)=1$
+        \subsection*{neccessity}
+            $\text{rank}(A)=1$ and suppose $u$ is a basis of $C(A)$, then
+            $$
+                A=\begin{bmatrix}
+                    v_1u & v_2u & \cdots & v_mu
+                \end{bmatrix} (\prod_{i\in[m]}v_i\neq 0)
+            $$
+            So
+            $$
+                A=u\begin{bmatrix}
+                    v_1 & v_2 & \cdots & v_m
+                \end{bmatrix}=uv^T
+            $$
 \end{document}
