@@ -1,0 +1,410 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, appendix, bm, graphicx, hyperref, mathrsfs}
+
+\title{\textbf{数学分析小论文:度量空间}}
+\author{楼翰诚}
+\date{\today}
+\linespread{1.5}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{remark}[theorem]{注}
+\renewcommand{\abstractname}{\Large\textbf{摘要}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{page}{0}
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+    根据《陶哲轩实分析》第12章度量空间, 摘取部分定义和定理/引理/命题, 并补充了证明部分.
+    \par\textbf{关键词：} 度量空间, 开的, 闭的, 收敛, Cauchy 序列, 完备性, 紧致性
+\end{abstract}
+
+\newpage
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\tableofcontents
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\section{引入和定义}
+
+在实数系中两点之间的距离为
+$$
+    d_1=\sqrt{(x_1-x_2)^2}=|x_1-x_2|
+$$
+在二维平面中两点之间的距离为
+$$
+    d_2=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2}
+$$
+在三维空间中两点之间的距离为
+$$
+    d_3=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2+(z_1-z_2)^2}
+$$
+在这些我们已经习以为常的距离定义(也叫作欧几里得距离)之外,还有其他几种常见的距离,比如曼哈顿距离
+$$
+    d_{l^1}=|x_1-x_2|+|y_1-y_2|
+$$
+比如切比雪夫距离
+$$
+    d_{l^{\infty}}=\max\{|x_1-x_2|,|y_1-y_2|\}
+$$
+这些距离满足一些共同的性质,比如三角不等式
+$$
+    d(x,z)\leq d(x,y)+d(y,z)
+$$
+另一方面,数列的收敛可以写成如下形式:
+
+\begin{lemma}
+    设 $(x_n)^{\infty}_{n=m}$ 是实数序列, 并设 $x$ 是实数, 那么 $(x_n)^{\infty}_{n=m}$ 收敛到 $x$ 当且仅当 $\lim_{n\to\infty}d(x_n,x)=0$
+\end{lemma}
+
+如果 $\{x_n\}$ 是定义在其他域上的数列, 如何定义收敛呢? 事实上,我们可以在度量空间上定义收敛概念.
+\begin{definition}
+    度量空间 $(X,d)$ 是一个集合 $X$, 其中的元素叫做点, 连同一个距离函数或度量 $d:X\times X\to [0,+\infty)$,
+    它把 $X$ 中的每一对点 $x,y$ 指派到一个非负的实数 $d(x,y)\geq 0$, 而且度量必须满足下属四条公理:\\
+    (a) 对于任意的 $x\in X$, 有 $d(x,x)=0$.\\
+    (b) (正性) 对于不同的 $x,y\in X$, 有 $d(x,y)>0$\\
+    (c) (对称性) 对于 $x,y\in X$, 有 $d(x,y)=d(y,x)$\\
+    (d) (三角形不等式) 对于 $x,y,z\in X$, 有 $d(x,z)\leq d(x,z) + d(z,y)$
+\end{definition}
+容易验证,前面提到的几种距离都符合四条公理.
+
+\begin{example}
+    设 $X$ 是任意的集合, 定义离散度量 $d_{disc}$ 如下:
+    $$
+        \begin{aligned}
+            & d_{disc}(x, y):=0, \text{若} x=y\\
+            & d_{dics}(x, y):=1, \text{若} x\neq y
+        \end{aligned}
+    $$
+\end{example}
+
+如上所说,可以在度量空间上定义收敛概念.
+
+\begin{definition}
+    我们说 $(x_n)^{\infty}_{n=m}$ 依度量 $d$ 收敛到 $x$, 当且仅当 $\lim_{n\to\infty}d(x_n, x)=0$.
+\end{definition}
+
+\section{一些其他的相关概念}
+
+\begin{definition}
+    设 $(X, d)$ 是度量空间, $x_0$ 是 $X$ 的点, 并设 $r>0$. 定义 $X$ 依度量 $d$ 的以 $x_0$ 为中心、$r$ 为半径的球为集合
+    $$
+        B_{(X, d)}(x_0,r) := \{x\in X:d(x, x_0)<r\}.
+    $$
+\end{definition}
+
+使用度量球的概念, 在度量空间 $X$ 中选取一个集合 $E$, 可以把 $X$ 的点分成三种类型
+
+\begin{definition}
+    (a) (内点) 若 $\exists r>0:B(x_0, r)\in E$, 则称 $x_0$ 是 $E$ 的内点, 所有内点构成的集合为 $int(E)$.\\
+    (b) (外点) 若 $\exists r>0:B(x_0, r)\cap E=\varnothing$, 则称 $x_0$ 是 $E$ 的外点, 所有外点构成的集合为 $ext(E)$.\\
+    (c) (边界点) 若 $x_0$ 既不是内点也不是外点, 则称 $x_0$ 是 $E$ 的边界点, 边界点的集合记作 $\partial E$.
+\end{definition}
+
+显然, $x_0$ 不可能既是内点又是外点, 因为 $int(E)\in E,ext(E)\in X\backslash E$
+
+\begin{definition}
+    若 $\forall r>0:B(x_0, r)\cap E\neq \varnothing$, 则称 $x_0$ 是 $E$ 的附着点, 所有附着点构成的集合称为 $E$ 的闭包, 记作 $\overline{E}$
+\end{definition}
+
+事实上, 附着点相当于内点或边界点.
+
+\begin{proposition}
+    下列命题是等价的:\\
+    (a) $x_0$ 是 $E$ 的附着点\\
+    (b) $x_0$ 是 $E$ 的内点或边界点\\
+    (c) 存在 $E$ 中的序列 $\{x_n\}_{n=1}^{\infty}$ 依度量 $d$ 收敛到 $x_0$
+\end{proposition}
+
+\begin{proof}
+    (1) 证明 $(a)\Rightarrow (b)$\\
+    假设 $x_0\in \text{ext}(E)$, 那么 $\exists r > 0: B(x_0, r)\cap E=\varnothing$,
+    这与附着点的定义相矛盾.\\
+    (2) 证明 $(b)\Rightarrow (a)$\\
+    因为 $x_0$ 是 $E$ 的内点或边界点, 也就是说 $x_0$ 不是 $E$ 的外点, 即 $\forall r>0:B(x_0, r)\cap E\neq\varnothing$, 这就是附着点的定义.\\
+    (3) 证明 $(a)\Rightarrow (c)$\\
+    由于 $x_0$ 是附着点, 那么 $\forall r > 0:B(x_0, r)\cap E\neq \varnothing$.
+    也就是说, $\exists x_n\in E:x_n\in B(x_0, \frac1n)$. 由此构造出 $\{x_n\}_{n=1}^{\infty}$ 收敛于 $x_0$\\
+    (4) 证明 $(c)\Rightarrow (a)$\\
+    由于存在 $\{x_n\}_{n=1}^{\infty}$ 收敛于 $x_0$, 也就是说 $\forall r > 0, \exists N(r), \forall n \geq N(r): d(x_0, x_n)<r$, 即 $x_n\in B(x_0, r)$.
+    也就是说, $\forall r>0, x_{N(r)}\in E\cap B(x_0, r)$, 即 $E\cap B(x_0, r)\neq \varnothing$, 即 $x_0$ 是附着点. 
+\end{proof}
+
+也就是说, $\overline{E}=int(E)\cup\partial E=X\backslash ext(E)$
+
+\begin{definition}
+    如果 $\partial E\subseteq E$, 则称 $E$ 是闭的.\\
+    如果 $\partial E \cap E = \varnothing$, 则称 $E$ 是开的.
+\end{definition}
+
+事实上, 开和闭并不是相对的概念.
+
+\begin{remark}
+    如果 $\partial E=\varnothing$, 则 $E$ 既是开的又是闭的.
+\end{remark}
+
+$E$ 是否是开集与是否是闭集没有直接的联系.
+
+% \begin{proposition}
+%     开集和闭集的基本性质
+% \end{proposition}
+
+\section{Cauchy 序列及完备度量空间}
+
+类比实数的五条基本定理, 可以在度量空间上得到类似的结论.例如, 类比"单调有界数列必收敛", 可以得到以下定理.
+
+\begin{lemma}
+    $(x_n)_{n=m}^{\infty}$ 收敛于极限 $x_0$ 的充分必要条件是 该序列的每个子序列都收敛到 $x_0$
+\end{lemma}
+\begin{proof}
+    (1) 充分性\\
+        平凡的, $(x_n)_{n=1}^{\infty}$ 即为本身的子序列.\\
+    (2) 必要性\\
+    设 子序列 $(x_{n_i})_{i=1}^{\infty}$ 收敛于 $x_0'$, 那么
+    $$
+        \forall r>0,\exists N(r),\forall i\geq N(r):d(x_{n_i}, x_0)<\frac r2, d(x_{n_i}, x_0')< \frac r2
+    $$
+    由三角不等式得
+    $$
+        \forall r > 0:d(x_0,x_0')\leq d(x_0, x_{n_i})+d(x_0', x_{n_i})<r
+    $$
+    即 $d(x_0, x_0')=0$, $x_0=x_0'$\\
+\end{proof}
+
+类比数列的极限点, 可以写出度量空间上序列的极限点.
+
+\begin{definition}
+    若 $(x_n)_{n=m}^{\infty}$ 存在子序列收敛于 $x_0$, 则称 $x_0$ 是序列的极限点.
+\end{definition}
+\begin{proposition}
+    上述定义等价于 $\forall N \geq m, \forall \varepsilon > 0, \exists n \geq N : d(x_n, x_0)<\varepsilon$
+\end{proposition}
+\begin{proof}
+    (1) 充分性\\
+        设 函数 $f(N, \varepsilon)$
+        $$
+            \forall N\geq m, \forall \varepsilon > 0, \exists n=f(N, \varepsilon)\geq N+1\geq N:d(x_n,x_0)<\varepsilon
+        $$
+        构造子序列
+        $$
+            x_{n_i}=\left\{\begin{aligned}
+                & x_m & i=1\\
+                & x_{f(n_{i-1}, \frac1n)} & i\geq 2
+            \end{aligned}\right.
+        $$
+        是收敛于 $x_0$ 的.\\
+    (2) 必要性\\
+    设 存在子序列 $(x_{n_i})_{i=1}^{\infty}$ 收敛于 $x_0$
+    $$
+        \forall \varepsilon > 0, \exists N(\varepsilon),\forall i\geq N(\varepsilon):d(x_0, x_{n_i})<\varepsilon
+    $$
+    因此
+    $$
+        \forall \varepsilon > 0, \forall N \geq m, \exists n=\max\{N, N(\varepsilon)\}:d(x_0, x_n)<\varepsilon
+    $$
+\end{proof}
+
+同样, 可以定义度量空间上的 Cauchy 序列, 并且 Cauchy 收敛原理的一边也是成立的.
+
+\begin{definition}
+    序列 $(x_n)_{n=m}^{\infty}$ 是 Cauchy 序列当且仅当 $\forall \varepsilon > 0, \exists N \geq m, \forall i,j\geq N:d(x_i,x_j)<\varepsilon$
+\end{definition}
+\begin{lemma}
+    收敛序列都是 Cauchy 序列
+\end{lemma}
+\begin{proof}
+    设 $(x_n)_{n=m}^{\infty}$ 收敛于 $x_0$
+    $$
+        \forall \varepsilon > 0, \exists N=N(\varepsilon), \forall n\geq N:d(x_n, x_0) <\varepsilon
+    $$
+    那么由三角形不等式
+    $$
+        \forall \varepsilon > 0, \forall N=N(\frac{\varepsilon}{2}), \forall n_1, n_2\geq N:d(x_{n_1}, x_{n_2})\leq d(x_{n_1}, x_0) + d(x_0, x_{n_2})< \frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon
+    $$
+    因此是 Cauchy 序列.\\
+\end{proof}
+
+注意, 反过来并不一定成立. 如果反过来也成立, 那么该空间是完备的.(类比实数的完备性)
+
+\begin{lemma}
+    设 $(x_n)_{n=m}^{\infty}$ 是 $(X, d)$ 中的 Cauchy 序列, 若它的一个子序列在 $X$ 中收敛到极限 $x_0$, 那么原始序列也收敛到 $x_0$ 
+\end{lemma}
+
+\begin{proof}
+    设序列 $(x_n)_{n=m}^{\infty}$ 的子序列 $(x_{n_k})_{k=1}^{\infty}$ 收敛于 $x_0$.\\
+    那么
+    $$
+        \forall \varepsilon > 0, \exists N \geq m, M \geq 1, \forall n\geq N,\exists k\geq M (n_k\geq N):d(x_{n_k},x_0)<\frac{\varepsilon}{2}, d(x_n,x_{n_k})<\frac{\varepsilon}{2}
+    $$
+    由三角形不等式
+    $$
+        \forall \varepsilon > 0, \exists N \geq m, \forall n\geq N: d(x_n, x_0) \leq d(x_n, x_{n_k}) + d(x_{n_k}, x_0) < \varepsilon
+    $$
+    因此 $(x_n)_{n=m}^{\infty}$ 收敛于 $x_0$.\\
+\end{proof}
+
+\begin{definition}
+    度量空间 $(X,d)$ 是完备的当且仅当 $(X,d)$ 中的每个 Cauchy 序列都在 $(X,d)$ 中收敛.
+\end{definition}
+
+下面给出关于完备性的两条性质:
+
+\begin{proposition}
+    (a) 设 $(X, d)$ 是度量空间, 并设 $(Y, d|_{Y\times Y})$ 是 $(X,d)$ 的子空间.如果 $(Y, d|_{Y\times Y})$ 是完备的, 那么 $Y$ 必是 $X$ 中的闭集.\\
+    (b) 反过来, 设 $(X, d)$ 是完备的度量空间, 并且 $Y$ 是 $X$ 的闭子集合, 那么子空间 $(Y, d|_{Y\times Y})$ 也是完备的.
+\end{proposition}
+
+\begin{proof}
+    (a)\\
+    设 $x_0\in\partial Y$, 那么 $x_0$ 也是附着点, 由附着点定义
+    $$
+        \forall r > 0 : B(x_0, r) \cap Y\neq\varnothing, \exists x(r) \in B(x_0, r) \cap Y
+    $$
+    也就是说
+    $$
+        \forall r > 0, \exists x(r) \in B(x_0, r)\cap Y
+    $$
+    构造序列 $(x_n)_{n=1}^{\infty}$, 令 $x_n=x(\frac{1}{n})$, 则该序列收敛于 $x_0$.
+    因为 $(Y,d|_{Y\times Y})$ 是完备的, $x_0\in Y$.因此 $\partial Y\subseteq Y$, $Y$ 是 $X$ 中的闭集.\\
+    (b)\\
+    设 Cauchy序列 $(x_n)_{n=m}^{\infty} (\forall n\geq m:x_n\in Y)$, 因为 $(X, d)$ 是完备的, $(x_n)_{n=m}^{\infty}$ 在 $(X, d)$ 是收敛的.即
+    $$
+        \exists x_0\in X, \forall \varepsilon > 0, \exists N = N(\varepsilon) \geq m, \forall n \geq N : d(x_n, x_0) < \varepsilon
+    $$
+    若 $x_0\in \text{ext}(Y)$, 则
+    $$
+        \exists \varepsilon > 0 : B(x_0, \varepsilon)\cap Y=\varnothing
+    $$
+    那么
+    $$
+        \exists \varepsilon > 0, \forall y\in Y : d(y, x_0) \geq \varepsilon
+    $$
+    而 $d(x_{N(\varepsilon)}, x_0)<\varepsilon$, 矛盾! 因此 $x_0\in X\backslash \text{ext}(Y)=Y\cup \partial Y$, 
+    而 $Y$ 是闭集, $\partial Y\subseteq Y$, 即 $x_0\in Y$, 所以 $(Y,d|_{Y\times Y})$ 也是完备的.\\
+\end{proof}
+
+\section{紧致度量空间}
+
+在实数域上, 有界数列必有收敛子列, 在度量空间上, 这一性质称为紧致性.
+
+\begin{definition}
+    称度量空间 $(X,d)$ 是紧致的当且仅当 $(X, d)$ 中的每个序列都至少有一个收敛的子列.\\
+    称度量空间 $X$ 的子集合 $Y$ 是紧致的当且仅当 $(Y,d|_{Y\times Y})$ 是紧致的.
+\end{definition}
+
+\begin{definition}
+    设 $(X, d)$ 是度量空间, 并设 $Y$ 是 $X$ 的子集合, 则称 $Y$ 是有界的当且仅当在 $X$ 中有一个球 $B(x, r)$ 包含 $Y$.
+\end{definition}
+
+紧致性是一个比完备性和有界性都要强的概念.
+
+\begin{proposition}
+    设 $(X, d)$ 是紧致度量空间, 那么 $(X,d)$ 既是完备的也是有界的.
+\end{proposition}
+
+\begin{proof}
+    (a) 完备的\\
+    设任意 Cauchy序列 $(x_n)_{n=m}^{\infty}$\\
+    由紧致性, 存在子序列 $(x_{n_k})_{k=1}^{\infty}$ 收敛于 $x_0$, 那么 $(x_n)_{n=m}^{\infty}$ 也收敛于 $x_0$.\\
+    (b) 有界的\\
+    反证法.假设 $(X, d)$ 是无界的,即
+    $$
+        \forall x_0\in X, \forall r > 0,\exists x\in X:d(x, x_0)>r
+    $$
+    构造序列 $(x_n)_{n=1}^{\infty}$, 使得 $x_1=x_0$ 并且 $d(x_n, x_{n+1})>n$, 显然这不是 Cauchy序列, 它的任意子序列也不是 Cauchy序列, 因此不存在收敛的子列, 这与紧致性的定义矛盾.
+\end{proof}
+
+\begin{corollary}
+    设 $(X, d)$ 是度量空间, 并设 $Y$ 是 $X$ 的紧致子集合, 那么 $Y$ 是闭的并且是有界的.
+\end{corollary}
+
+在欧几里得空间, 反过来也是成立的.
+
+\begin{theorem}
+    (Heine-Boral 定理) 设 $(\mathbb R^n, d_{l^k})$ 是欧几里得空间, 设 $E$ 是 $\mathbb R^n$ 的子集合, 那么 $E$ 是紧致集合当且仅当它是闭的并且是有界的. 
+\end{theorem}
+
+\begin{proof}
+    (1) 必要性\\
+    同命题4.3.\\
+    (2) 充分性\\
+    设 $x_i=(x_{i}(1),x_{i}(2),...,x_{i}(n))$, $E_j=\{x(j)|\forall x\in E\}$
+    显然 $(E_i, d) (d(x,y)=|x-y|)$ 也是闭且有界的.\\
+    对于 $E_i$, 因为有界数列必有收敛子列, 而由极限的保号性, 所有收敛点都在 $E_i$ 中, 因此 $E_i$ 是紧致的.\\
+    于是, $E$ 也是紧致的.\\
+\end{proof}
+
+实数域的有限覆盖定理, 事实上是紧致度量空间的性质 (也可以说是定义)
+
+\begin{theorem}
+    设 $(X, d)$ 是度量空间, 并设 $Y$ 是 $X$ 的紧致的子集合, 设 $(V_{\alpha})_{\alpha\in I}$ 是 $X$ 的一族开集, 并设
+    $$
+        Y\subseteq \cup_{\alpha \in I} V_{\alpha}
+    $$
+    那么存在 $I$ 的有限子集 $F$ 使得
+    $$
+        Y\subseteq \cup_{\alpha\in F}V_{\alpha}
+    $$
+\end{theorem}
+
+\begin{proof}
+    对于 $y\in Y$, 设 $r(y)=\sup\{r>0|\exists \alpha\in I:B(y, r)\subseteq V_{\alpha}\}$\\
+    假设 $\inf\{r(y)|y\in Y\}=0$, 则存在 $Y$ 上的序列 $(x_n)_{n=1}^{\infty}$ 满足 $r(x_n)<\frac1n$, $(r(x_n))_{n=1}^{\infty}$ 收敛于 $0$
+    由于 $Y$ 是紧致的, 存在收敛子序列 $(x_{n_k})_{k=1}^{\infty}$ 收敛于 $x_0$.\\
+    设 $B(x_0,r(x_0))\subseteq V_{\alpha}$, 而 $\exists N \geq 1, \forall k\geq N: d(x_{n_k}, x_0) < \frac{r(x_0)}{2}$, $B(x_{n_k}, \frac{r(x_0)}{2})\subseteq V_{\alpha}, r(x_{n_k})\geq \frac{r(x_0)}{2}$,
+    这与 $(r(x_n))_{n=1}^{\infty}$ 收敛于 $0$ 矛盾.\\
+    因此 $\inf\{r(y)|y\in Y\}=r_0>0$, 而 $\forall y\in Y, \exists \alpha\in Y : B(y, \frac{r_0}{2})\subseteq V_{\alpha}$\\
+    归纳构造 $Y$ 上的序列 $(x_n)_{n=1}^{\infty}$, 取 $x_1$ 是 $Y$ 上任意一点.\\
+    当 $n=m$ 时, 如果 $Y\subseteq \cup_{k\in[m]} B(x_k, \frac{r_0}{2})$, 那么找到有限子集 $F$ 使得 $Y\subseteq \cup_{\alpha\in F}V_{\alpha}$, 不再继续构造.\\
+    否则, 令 $x_{m+1}=Y\backslash \cup_{k\in[m]} B(x_k, \frac{r_0}{2})$.
+    这样构造出来的序列满足 $\forall i > j\geq 1:d(x_i, x_j)>\frac{r_0}{2}$, 因此它的任意子列都不是 $Cauchy$ 序列, 即任意子列都不收敛, 这与紧致性的定义矛盾, 也就是说, 构造不会无限进行下去.\\
+\end{proof}
+
+\begin{corollary}
+    设 $(X, d)$ 是度量空间, 并设 $K_1,K_2,K_3,...$ 是 $X$ 的非空紧致子集合的一个序列, 满足
+    $$
+        K_1 \supseteq K_2 \supseteq K_3 \supseteq \cdots
+    $$
+    那么交集 $\cap_{n=1}^{\infty}K_n$ 不空.
+\end{corollary}
+
+\begin{proof}
+    构造序列 $(x_n)_{n=1}^{\infty}$, 令 $x_n\in K_n$.\\
+    由于 $K_1$ 是紧致的, 则存在收敛子列 $(x_{n_k})_{k=1}^{\infty}$ 收敛于 $x_0$.\\
+    $\forall n\geq 1, \exists m (n_k\geq n): (x_{n_k})_{k=m}^{\infty} \text{收敛于 } x_0, x_0\in K_n$\\
+    因此 $x_0\in \cap_{n=1}^{\infty} K_n$\\
+\end{proof}
+
+% \begin{theorem}
+%     设 $(X, d)$ 是度量空间.\\
+%     (a) 如果 $Y$ 是 $X$ 的紧致子集合, 并且 $Z\subseteq Y$, 那么 $Z$ 是紧致的当且仅当 $Z$ 是闭的.\\
+%     (b) 如果 $Y_1,...,Y_n$ 是 $X$ 的 $n$ 个紧致子集合, 那么它们的并集 $Y_1\cup Y_2\cup ...\cup Y_n$ 也是紧致的.\\
+%     (c) $X$ 的每个有限子集合 (包括空集) 是紧致的.
+% \end{theorem}
+
+\newpage
+
+\begin{thebibliography}{99}
+    \bibitem{a}Terence Tao. \emph{Analysis II}[M]. Springer Science+Business Media Singapore 2016 and Hindustan Book Agency 2015.
+    \bibitem{b}https://christangdt.home.blog/analysis/analysis-tenrece-tao-3rd-ed/
+\end{thebibliography}
+
+% \newpage
+
+% \begin{appendices}
+%     \renewcommand{\thesection}{\Alph{section}}
+%     \section{附录标题}
+%         这里是附录. 
+% \end{appendices}
+
+\end{document}
