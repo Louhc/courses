@@ -37,6 +37,101 @@
                 10 & 5
             \end{bmatrix}
         $$
+        $$
+            \left\{\begin{aligned}
+                & \lambda_1' &= 25\\
+                & \lambda_2' &= 0
+            \end{aligned}\right.
+        $$
+        $$
+            \left\{\begin{aligned}
+                & \sigma_1 &= 5\\
+                & \sigma_2 &= 0
+            \end{aligned}\right.
+        $$
+    \section*{Exercise 3.}
+        $$
+            A^TA=\begin{bmatrix}
+                2 & 1\\
+                1 & 1
+            \end{bmatrix}
+        $$
+        $$
+            \left\{\begin{aligned}
+                & 2x + y &= \lambda x\\
+                & x + y &= \lambda y
+            \end{aligned}\right.
+        $$
+        $$
+            \left\{\begin{aligned}
+                \lambda_1 &= \frac{3-\sqrt5}{2} & v_1 &= \sqrt{\frac{2}{5+\sqrt{5}}}\begin{bmatrix}
+                    1 & -\frac{1+\sqrt{5}}{2}
+                \end{bmatrix}^T & u_1 &= \frac{Av_1}{\sqrt{\lambda_1}} &=\sqrt{\frac{2}{5+\sqrt{5}}}\begin{bmatrix}
+                    -1 & \frac{1+\sqrt{5}}{2}
+                \end{bmatrix}\\
+                \lambda_2 &= \frac{3+\sqrt5}{2} & v_2 &= \sqrt{\frac{2}{5-\sqrt{5}}}\begin{bmatrix}
+                    1 & \frac{\sqrt{5}-1}{2}
+                \end{bmatrix}^T & u_2 &= \frac{Av_2}{\sqrt{\lambda_2}} &=\sqrt{\frac{2}{5-\sqrt{5}}}\begin{bmatrix}
+                    1 & \frac{\sqrt{5}-1}{2}
+                \end{bmatrix}
+            \end{aligned}\right.
+        $$
+        $$
+            \left\{\begin{aligned}
+                \sigma_1 &= \frac{\sqrt{5} - 1}{2}\\
+                \sigma_2 &= \frac{\sqrt{5} + 1}{2}
+            \end{aligned}\right.
+        $$
+        $$
+            \begin{aligned}
+                A&=\begin{bmatrix}
+                    \sqrt{\frac{2}{5+\sqrt{5}}} & \sqrt{\frac{2}{5-\sqrt{5}}}\\
+                    -\sqrt{\frac{2}{5+\sqrt{5}}}\frac{1+\sqrt{5}}{2} & \sqrt{\frac{2}{5-\sqrt{5}}}\frac{\sqrt{5}-1}{2}
+                \end{bmatrix}\begin{bmatrix}
+                    \frac{\sqrt{5} - 1}{2} & 0\\
+                    0 & \frac{\sqrt{5} + 1}{2}
+                \end{bmatrix}\begin{bmatrix}
+                    -\sqrt{\frac{2}{5+\sqrt{5}}} & \sqrt{\frac{2}{5+\sqrt{5}}}\frac{\sqrt{5}+1}{2}\\
+                    \sqrt{\frac{2}{5-\sqrt{5}}} & \sqrt{\frac{2}{5-\sqrt{5}}}\frac{\sqrt{5}-1}{2}
+                \end{bmatrix}\\&=\begin{bmatrix}
+                    \sqrt{\frac{2}{5+\sqrt{5}}} & \sqrt{\frac{2}{5-\sqrt{5}}}\\
+                    -\sqrt{\frac{2}{5-\sqrt{5}}} & \sqrt{\frac{2}{5+\sqrt{5}}}
+                \end{bmatrix}\begin{bmatrix}
+                    \frac{\sqrt{5} - 1}{2} & 0\\
+                    0 & \frac{\sqrt{5} + 1}{2}
+                \end{bmatrix}\begin{bmatrix}
+                    -\sqrt{\frac{2}{5+\sqrt{5}}} & \sqrt{\frac{2}{5-\sqrt{5}}}\\
+                    \sqrt{\frac{2}{5-\sqrt{5}}} & \sqrt{\frac{2}{5+\sqrt{5}}}
+                \end{bmatrix}
+            \end{aligned}
+        $$
+    \section*{Exercise 4.}
+        $$
+            A=\sum_{i\in[n]} \sigma_iu_iv_i^T
+        $$
+        Let $\sigma_i=\frac{1}{\lVert v_i\rVert^2}(\forall i\in [n])$
+        $$
+            Av_j=\sum_{i\in[n]} \sigma_iu_i(v_i^Tv_j)
+        $$
+        $v_1, ..., v_n$ are orthonormal, so
+        $$
+            v_i^Tv_j =\left\{\begin{aligned}
+                & \lVert v_i\rVert^2  & i=j\\
+                & 0 & i\neq j
+            \end{aligned}\right.            
+        $$
+        Therefore,
+        $$
+            Av_i=u_i (\forall i\in [n])
+        $$
+        $$
+            A=U\begin{bmatrix}
+                \frac{1}{\lVert v_1\rVert^2} & 0 & \cdots & 0\\
+                0 & \frac{1}{\lVert v_2\rVert^2} & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0 & 0 & \cdots & \frac{1}{\lVert v_n\rVert^2}
+            \end{bmatrix}V^T
+        $$
     \section*{Exercise 5.}
         \subsection*{sufficiency}
             $$
